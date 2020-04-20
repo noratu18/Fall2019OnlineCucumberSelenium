@@ -40,8 +40,7 @@ public class CalendarEventsPage extends AbstractPageBase {
     @FindBy(id = "tinymce")
     private WebElement descriptionTextArea;
 
-    @FindBy(css = "[class='btn-group pull-right'] > button")
-    private WebElement saveAndClose;
+
 
     @FindBy(xpath = "(//div[@class='control-label'])[1]")
     private WebElement generalInfoTitle;
@@ -49,22 +48,39 @@ public class CalendarEventsPage extends AbstractPageBase {
     @FindBy(xpath = "//label[text()='Description']/following-sibling::div//div")
     private WebElement generalInfoDescription;
 
+    @FindBy(xpath = "//*[contains(text(),'View per page:')]/following-sibling::*//a")
+    private List<WebElement> viewPerPageElements;
+
+    @FindBy(css = "button[class*='btn dropdown-toggle']")
+    private  WebElement viewPerPageCaret;
+
+
+    public List<String> getViewPerPageOptions() {
+        BrowserUtilities.waitForPageToLoad(20);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title='Create Calendar event']")));
+        viewPerPageCaret.click();
+        return BrowserUtilities.getTextFromWebElements(viewPerPageElements);
+    }
+
     public void enterCalendarEventTitle(String titleValue) {
         BrowserUtilities.waitForPageToLoad(20);
         wait.until(ExpectedConditions.visibilityOf(title)).sendKeys(titleValue);
+        //if doesn't work we can put this waits
+       wait.until(ExpectedConditions.attributeToBe(title, "value", titleValue));
+
     }
 
     public void enterCalendarEventDescription(String description) {
         //wait until frame is available and switch to it
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(descriptionFrame));
         descriptionTextArea.sendKeys(description);
+        //if doesn't work we can put these waits
+        wait.until(ExpectedConditions.textToBePresentInElement(descriptionTextArea,description));
         driver.switchTo().defaultContent();//exit from the frame
     }
 
-    public void clickOnSaveAndClose() {
-        BrowserUtilities.wait(3);
-        wait.until(ExpectedConditions.elementToBeClickable(saveAndClose)).click();
-    }
+
+
 
     public String getGeneralInfoTitleText() {
         BrowserUtilities.waitForPageToLoad(20);
