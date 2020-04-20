@@ -1,8 +1,10 @@
 package com.vytrack.step_definitions;
 
 import com.vytrack.pages.LoginPage;
+import com.vytrack.utilities.BrowserUtilities;
 import com.vytrack.utilities.ConfigurationReader;
 import com.vytrack.utilities.Driver;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -36,9 +38,31 @@ public class LoginStepDefinitions {
     @Then("user should verify that title is a Dashboard")
     public void user_should_verify_that_title_is_a_Dashboard() {
         System.out.println("verify that title is a Dashboard");
-
+        BrowserUtilities.waitForPageToLoad(10);
+        BrowserUtilities.waitForPageToLoad(2);
         Assert.assertEquals("Dashboard", Driver.getDriver().getTitle());
-        Driver.closeDriver();
+
+
+    }
+
+    @When("user logs in as a driver")
+    public void user_logs_in_as_a_driver() {
+        System.out.println("Login as a driver");
+        loginPage.login("user19", "UserUser123");
+    }
+
+
+    //When user enters "storemanager85" username and "UserUser123" password
+    @When("user enters {string} username and {string} password")
+    public void userEntersUsernameAndPassword(String arg0, String arg1) {
+        System.out.printf("Login with user name %s and %s password\n", arg0, arg1);
+        loginPage.login(arg0,arg1);
+    }
+
+    @And("user navigates to {string} and {string}")
+    public void userNavigatesToAnd(String tab, String module) {
+        System.out.printf("User clicks on the %s tab and navigates to %s module\n", tab, module);
+        loginPage.navigateTo(tab, module); // Page Object Model design
 
     }
 
