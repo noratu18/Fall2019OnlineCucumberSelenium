@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
         strict = false,   // If no, cucumber will throw step definition snippets into console.
                         //option , so it will not execute the test , it will just check the code implementation, otherwise ide will kick snippet
 
-        tags = "@verifyUrl",
+        tags = "@create_car_DDT",
         plugin = {
                 "html:target/default-report",
                 "json:target/cucumber1.json"  // this line will generate json report
