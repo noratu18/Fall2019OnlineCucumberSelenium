@@ -41,23 +41,31 @@ public class VehiclesPage extends AbstractPageBase {
     public void setDriverInput(String driver){
         driverInput.sendKeys(driver);
     }
+
     public void setLocationInput(String location){
+
         locationInput.sendKeys(location);
+        // if fails we can put this wait script
+       // wait.until(ExpectedConditions.attributeToBe(locationInput, "value", location));
     }
+
     public void setModelYear(String year){
         modelYear.sendKeys(year);
     }
+
     public void setColor(String color){
         this.color.sendKeys(color);
     }
+
     public void submit(){
+
         submit.click();
     }
 
 
     public void clickToCreateCar(){
-        WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.elementToBeClickable(createCar)).click();
+        waitForLoaderMask();
     }
 
     // this method
