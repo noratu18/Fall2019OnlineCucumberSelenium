@@ -63,8 +63,26 @@ public class LoginStepDefinitions {
     public void userNavigatesToAnd(String tab, String module) {
         System.out.printf("User clicks on the %s tab and navigates to %s module\n", tab, module);
         loginPage.navigateTo(tab, module); // Page Object Model design
+        BrowserUtilities.wait(3);
 
     }
 
 
+    @Then("user name should be {string}")
+    public void userNameShouldBe(String string) {
+        System.out.println("Running 6 tests in Scenario Outline");
+        Assert.assertEquals(string, loginPage.getCurrentUserName());
+
+    }
+
+    @When("logs is as {string}")
+    public void logs_is_as(String role) {
+        loginPage.login(role); // this is our 3rd method login role will be called from feature file
+    }
+
+    @Then("user verifies that page title is {string}")
+    public void user_verifies_that_page_title_is(String string) {
+        System.out.println("Verifies that page title is " + string);
+       Assert.assertEquals(string, Driver.getDriver().getTitle());
+    }
 }
