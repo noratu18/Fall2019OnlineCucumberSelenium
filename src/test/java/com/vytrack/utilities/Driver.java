@@ -8,11 +8,15 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Driver {
 
+    // For parallel testing we need ThreadLocal class and Synchronized methods to setup driver
+    // ThreadLocal will duplicate the tasks
+   //It is recommended to use Threadlocal static
     //same for everyone
     private static ThreadLocal<WebDriver> driverPool = new ThreadLocal<>();
 
     //so no one can create object of Driver class
     //everyone should call static getter method instead
+    //singleton driver
     private Driver() {
 
     }

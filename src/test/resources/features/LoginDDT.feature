@@ -1,6 +1,7 @@
 @scenario_outline_2
 Feature: Login tests with Scenario Outline
 
+
   Scenario Outline: Go to <module> and verify title: <title>
     Given user is on the login page
     When logs is as "<user_type>"
